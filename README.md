@@ -35,6 +35,11 @@ Para entender a estrutura do site iremos usar as ferramentas de desenvolvedor do
 
 Neste site é mais simples fazer a raspagem coletando o texto diretamente do HTML do que inspecionando as chamadas feitas ao servidor. Na figura anterior o círculo com o número **1** indica o botão de seleção de elementos, este botão permite que selecionemos algum elemento diretamente no site renderizado e inspecionemos o código HTML associado a ele. Neste exemplo vamos selecionar o primeiro time da lista o **Arizona Diamondbacks**, indicado pelo círculo **2**. Ao clicar no nome do time (após termos clicado na ferramenta de seleção) a aba de elementos do **DevTools** irá automaticamente selecionar o código HTML responsável pelo elemento selecionado, ao clicarmos com o botão direito do mouse sobre o texto HTML marcado podemos copiar o código seletor deste elemento (clicando em **3** e **4**), este código seletor pode ser usado no javascript para interagir programaticamente com a página.
 
+Na figura abaixo vemos a aba console (**1**), onde podemos escrever comandos com javascript que servem para interagir com a página atualmente carregada no navegador. Usando o comando `documento.querySelector('SELETOR')` podemos capturar o elemento no código e interagir com ele. Por exemplo usando o seletor que foi copiado na etapa anterior `document.querySelector('#teams_active > tbody > tr:nth-child(2) > td.left > a').innerText` (**2**) podemos extrair o nome do time (**3**).
+
+![devtools-console](https://user-images.githubusercontent.com/1486993/134052677-fab3011f-2e85-4d25-a702-19503cdc3f35.png)
+
+
 ## O oráculo de baseball
 
 a

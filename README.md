@@ -19,16 +19,151 @@ Este projeto usa o python 3.8 e a biblioteca pyppeteer.
 
 Este projeto contém 3 etapas e pode ser iniciado a partir de qualquer uma delas:
 
-1. [A estrutura do site](#A estrutura do site) - Para iniciar o processo de raspagem é preciso conhecer a estrutura interna das páginas do site alvo. Uma vez que o site alvo tenha sido análisado podemos desenvolver scripts de javascript para facilitar o processo de raspagem.
+1. [A estrutura do site](#a-estrutura-do-site) - Para iniciar o processo de raspagem é preciso conhecer a estrutura interna das páginas do site alvo. Uma vez que o site alvo tenha sido análisado podemos desenvolver scripts de javascript para facilitar o processo de raspagem.
 
-2. [A raspagem](#A raspagem) - Usando o pyppeteer iremos acessar a página [BASEBALL REFERENCE](https://www.baseball-reference.com/) usando python e injetar os scrips de javascript desenvolvidos na etapa anterior. Através da comunicação entre o script de python com a página alvo, facilitada pelo script de javascript injetado, podemos começar a coletar os dados diretamente do HTML da página alvo. Os dados coletados então são armazenados em arquivos .json que serão usados na próxima etapa para formar um grafo de jogadores e times de baseball.
+2. [A raspagem](#a-raspagem) - Usando o pyppeteer iremos acessar a página [BASEBALL REFERENCE](https://www.baseball-reference.com/) usando python e injetar os scrips de javascript desenvolvidos na etapa anterior. Através da comunicação entre o script de python com a página alvo, facilitada pelo script de javascript injetado, podemos começar a coletar os dados diretamente do HTML da página alvo. Os dados coletados então são armazenados em arquivos .json que serão usados na próxima etapa para formar um grafo de jogadores e times de baseball.
 
-3. [O oráculo de baseball](#O oráculo de baseball) - Usando o banco de dados orientado a grafos [neo4j](https://neo4j.com/) iremos construir um grafo a partir dos arquivos .json coletados na etapa anterior, onde cada jogador será ligado por uma aresta a cada um dos times em que ele jogou. Dois jogadores ligados a um mesmo time terão uma aresta os conectando. O menor caminho entre dois jogadores será então a distância entre os jogadores no grafo.
+3. [O oráculo de baseball](#o-oráculo-de-baseball) - Usando o banco de dados orientado a grafos [neo4j](https://neo4j.com/) iremos construir um grafo a partir dos arquivos .json coletados na etapa anterior, onde cada jogador será ligado por uma aresta a cada um dos times em que ele jogou. Dois jogadores ligados a um mesmo time terão uma aresta os conectando. O menor caminho entre dois jogadores será então a distância entre os jogadores no grafo.
 
 
 
-##A estrutura do site
+## A estrutura do site
 
-##A raspagem
+a
 
-##O oráculo de baseball
+a
+
+a
+
+a
+
+a
+
+a
+
+a
+
+a
+
+a
+
+a
+
+a
+
+a
+
+a
+
+a
+
+a
+
+a
+
+a
+
+a
+
+a
+
+a
+
+a
+
+a
+
+
+## A raspagem
+
+a
+
+a
+
+a
+
+a
+
+a
+
+a
+
+a
+
+a
+
+a
+
+a
+
+a
+
+a
+
+a
+
+a
+
+a
+
+a
+
+a
+
+a
+
+a
+
+a
+
+a
+
+a
+
+
+## O oráculo de baseball
+
+a
+
+a
+
+a
+
+a
+
+a
+
+a
+
+a
+
+a
+
+a
+
+a
+
+a
+
+a
+
+a
+
+a
+
+a
+
+a
+
+a
+
+a
+
+a
+
+a
+
+a
+
+a
+

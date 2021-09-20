@@ -29,7 +29,7 @@ Este projeto contém 3 etapas e pode ser iniciado a partir de qualquer uma delas
 
 ## A estrutura do site
 
-Para entender a estrutura do site iremos usar as ferramentas de desenvolvedor do navegador **chrome devtools** (ou o equivalente em outro navegador). Ao acessar o site alvo o google chrome podemos abrir o **DevTools** apertando *F12* ou usando a sequencia *Ctrl+Shift+I*. Abaixo vemos o [site alvo](https://www.baseball-reference.com/teams/) com o **DevTools** aberto.
+Para entender a estrutura do site iremos usar as ferramentas de desenvolvedor do navegador **chrome devtools** (ou o equivalente em outro navegador). Ao acessar o site alvo o google chrome podemos abrir o **DevTools** apertando *F12* ou usando a sequencia *Ctrl+Shift+i*. Abaixo vemos o [site alvo](https://www.baseball-reference.com/teams/) com o **DevTools** aberto.
 
 ![devtools](https://user-images.githubusercontent.com/1486993/134050296-3789d554-b9e2-41d3-99df-c65c3dc77557.png)
 

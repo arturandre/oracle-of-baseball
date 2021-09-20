@@ -29,96 +29,9 @@ Este projeto contém 3 etapas e pode ser iniciado a partir de qualquer uma delas
 
 ## A estrutura do site
 
-a
-
-a
-
-a
-
-a
-
-a
-
-a
-
-a
-
-a
-
-a
-
-a
-
-a
-
-a
-
-a
-
-a
-
-a
-
-a
-
-a
-
-a
-
-a
-
-a
-
-a
-
-a
+Para entender a estrutura do site iremos usar as ferramentas de desenvolvedor do navegador **chrome devtools** (ou o equivalente em outro navegador). Ao acessar o site alvo o google chrome podemos abrir o **DevTools** apertando *F12* ou usando a sequencia *Ctrl+Shift+I*.
 
 
-## A raspagem
-
-a
-
-a
-
-a
-
-a
-
-a
-
-a
-
-a
-
-a
-
-a
-
-a
-
-a
-
-a
-
-a
-
-a
-
-a
-
-a
-
-a
-
-a
-
-a
-
-a
-
-a
-
-a
 
 
 ## O oráculo de baseball

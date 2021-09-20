@@ -9,9 +9,9 @@ O site de coleta de dados usado será o [BASEBALL REFERENCE](https://www.basebal
 Na fase de raspagem iremos:
 
 - Coletar os times disponíveis.
-  - Os anos em que estes times existiram.
+  ~~- Os anos em que estes times existiram.~~
 - Os jogadores de cada time.
-  - Os anos em que eles jogaram em cada time.
+  ~~- Os anos em que eles jogaram em cada time.~~
 
 Na fase de análise dos dados iremos remontar o [The Oracle of Bacon](https://oracleofbacon.org/), mas com jogadores de baseball.
 
@@ -21,7 +21,7 @@ Este projeto contém 3 etapas e pode ser iniciado a partir de qualquer uma delas
 
 1. [A estrutura do site](#a-estrutura-do-site) - Para iniciar o processo de raspagem é preciso conhecer a estrutura interna das páginas do site alvo. Uma vez que o site alvo tenha sido análisado podemos desenvolver scripts de javascript para facilitar o processo de raspagem.
 
-2. [A raspagem](#a-raspagem) - Usando o pyppeteer iremos acessar a página [BASEBALL REFERENCE](https://www.baseball-reference.com/) usando python e injetar os scrips de javascript desenvolvidos na etapa anterior. Através da comunicação entre o script de python com a página alvo, facilitada pelo script de javascript injetado, podemos começar a coletar os dados diretamente do HTML da página alvo. Os dados coletados então são armazenados em arquivos .json que serão usados na próxima etapa para formar um grafo de jogadores e times de baseball.
+2. [A raspagem e o web crawler](#a-raspagem-e-o-web-crawler) - Usando o pyppeteer iremos acessar a página [BASEBALL REFERENCE](https://www.baseball-reference.com/) usando python e injetar os scrips de javascript desenvolvidos na etapa anterior. Através da comunicação entre o script de python com a página alvo, facilitada pelo script de javascript injetado, podemos começar a coletar os dados diretamente do HTML da página alvo. Os dados coletados então são armazenados em arquivos .json que serão usados na próxima etapa para formar um grafo de jogadores e times de baseball.
 
 3. [O oráculo de baseball](#o-oráculo-de-baseball) - Usando o banco de dados orientado a grafos [neo4j](https://neo4j.com/) iremos construir um grafo a partir dos arquivos .json coletados na etapa anterior, onde cada jogador será ligado por uma aresta a cada um dos times em que ele jogou. Dois jogadores ligados a um mesmo time terão uma aresta os conectando. O menor caminho entre dois jogadores será então a distância entre os jogadores no grafo.
 
@@ -39,50 +39,30 @@ Na figura abaixo vemos a aba console (**1**), onde podemos escrever comandos com
 
 ![devtools-console](https://user-images.githubusercontent.com/1486993/134052677-fab3011f-2e85-4d25-a702-19503cdc3f35.png)
 
+Para facilitar o trabalho os scripts para extração dos nomes dos times (**get_teams.js**) e para extração dos jogadores (**get_players.js**) já foram criados. Ao navegarmos para a página dos [times](https://www.baseball-reference.com/teams/) podemos injetar o arquivo **get_teams.js**, isso é copiar o conteúdo do arquivo e colar diretamente na aba **Console** no **DevTools**. Ao fazer isso o download de três arquivos **.json** será iniciado, estes arquivos correspondem aos times ativos, inativos e nacionais de baseball.
+
+Se escolhermos um dos times da lista poderemos escolher entre a página dos jogadores rebatedores (i.e. *batting*) ou lançadores (i.e. *pitching*) como no exemplo do time [*Washington Nationals*](https://www.baseball-reference.com/teams/WSN/) na figura abaixo. Na página de jogadores (e.g. [rebatedores do time *Washington Nationals*](https://www.baseball-reference.com/teams/WSN/bat.shtml) podemos injetar o arquivo **get_players.js**, desta vez o script irá criar as funções `scrapplayer(playertype)` e `downloadteamlist(teamslist)`, e através destas funções podemos fazer o donwload de arquivos **.json** com a lista de jogadores, note que a chamada destas funções está comentada no final do script **get_players.js**.
+
+![wsn_team_example](https://user-images.githubusercontent.com/1486993/134074833-993163d2-c018-4d14-9b7d-d4227dc133d0.png)
+
+Vimos até aqui que podemos semi-automatizar o processo de coleta dos times e dos jogadores injetando manualmente os scripts **get_teams.js** e **get_players.js** nas páginas adequadas. Contudo para podemos automatizar completamente o processo de raspagem e também automatizar a navegação (i.e. *web crawler*) precisamos ter um controle maior sobre o navegador, isso é, não basta controlarmos a página, precisamos ter controle sobre o navegador em si. Para tanto usaremos o pacote **pyppeteer** que por sua vez irá instalar o navegador **Cromium**, o qual será controlado via python. A biblioteca **pyppeteer** é baseada na biblioteca **puppeteer** para a plataforma Node.js, mas para python.
+
+## A raspagem e o web crawler
+**With great powers...***
+
+*Um web-crawler pode rapidamente sobrecarregar um website fazendo um número excessivo de consultas, use com parcimônia.*
+
+**Para evitar transtornor ao site alvo os arquivos gerados nesta etapa estão disponíveis para download [aqui](https://vision.ime.usp.br/~arturao/baseball/). A explicação abaixo e o código referênciado tem finalidade didática.**
+
+Tendo em posse scripts que fazem a extração dos conteúdos relevantes diretamente do website alvo, a única tarefa restante é automatizar a navegação pelo website. Note que apesar de termos uma página contendo todos os times, muitas vezes não temos acesso a uma página com todos os jogadores (ou talvez não tão detalhada quanto a página específica de um dado time). Portanto será preciso navegar até a página específica de cada um dos times, acessar a página de jogadores rebatedores/lançadores e raspar a lista de tais jogadores.
+
+Existem diversas ferramentas para automatizar tarefas baseadas em navegadores, alguns dos mais conhecidos (e ainda ativos) incluem o **Selenium**, o **puppeteer* e o **pyppeteer** que usaremos. A finalidade principal destas ferramentas é a criação de testes automatizados durante a produção de websites, contudo elas permitem a realização de outras tarefas como navegação automática, envio de requisições HTTP, execução de scripts de javascript, controle de cookies e provavelmente tudo mais que um navegador permite. 
+
+Através do **pyppeteer** será executado o navegador **Cromium** no modo *headless*, oque implica que não será criada uma janela para ele, ou seja, ele irá rodar em background e não será possível a interação direta com ele. O modo *headless* é o modo padrão usado pelo **pyppeteer**, mas pode ser modificado, neste projeto usaremos apenas o modo *headless*.
+
+Neste projeto usaremos os scripts de python chamados **get_teams.py** e **get_players.py**. Ambos criam instâncias do navegador **Cromium** e uma aba de internet neste navegador. O primeiro script irá navegar até a página de [times](https://www.baseball-reference.com/teams/), irá injetar o script **get_teams.js**, mas ao invés de executar um download de arquivos **.json** pelo navegador, um dicionário (i.e. um objeto **JSON**) será criado em memória no navegador *headless* e este objeto em memória poderá ser lido diretamente em python. A partir dele iremos obter a lista de times e iremos criar os três arquivos **.json** via python. O segundo script python depende da execução do primeiro, isso é, uma vez gerados os arquivos com as listas de times (e seus respectivos endereços), o segundo script irá navegar até a página de cada time onde será injetado o script **get_players.js**, e assim como no caso dos times, um objeto **JSON** será criado na memória do navegador, este objeto será então lido diretamente via python e dará origem a um arquivo **.json** com a lista de jogadores de um dado time.
+
+Como dito antes, ambos os scripts de python são executados por um terceiro script chamado **main.py** que irá orquestrar a ordem das chamadas, o armazenamento e carregamento  dos arquivos **.json**. Note que no arquivo **main.py** mantemos um temporizador (via a variável local `sleep_time`) de 15 segundos. Este temporizador regula o intervalo entre a navegação entre uma página e a outra no navegador *headless*. Em algumas situações seria possível reduzir este tempo e até removê-lo completamente, contudo existem dois motivos para ele existir e ser de pelo menos 10 segundos, o primeiro motivo é para [evitar transtornos ao demais usuários do site](https://www.sports-reference.com/data_use.html). O segundo motivo é porque um intervalo menor é rapidamente bloqueado pelo servidor, obrigando o web crawler a ser reiniciado.
 
 ## O oráculo de baseball
-
-a
-
-a
-
-a
-
-a
-
-a
-
-a
-
-a
-
-a
-
-a
-
-a
-
-a
-
-a
-
-a
-
-a
-
-a
-
-a
-
-a
-
-a
-
-a
-
-a
-
-a
-
-a
 

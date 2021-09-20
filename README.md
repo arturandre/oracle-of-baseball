@@ -29,10 +29,11 @@ Este projeto contém 3 etapas e pode ser iniciado a partir de qualquer uma delas
 
 ## A estrutura do site
 
-Para entender a estrutura do site iremos usar as ferramentas de desenvolvedor do navegador **chrome devtools** (ou o equivalente em outro navegador). Ao acessar o site alvo o google chrome podemos abrir o **DevTools** apertando *F12* ou usando a sequencia *Ctrl+Shift+I*.
+Para entender a estrutura do site iremos usar as ferramentas de desenvolvedor do navegador **chrome devtools** (ou o equivalente em outro navegador). Ao acessar o site alvo o google chrome podemos abrir o **DevTools** apertando *F12* ou usando a sequencia *Ctrl+Shift+I*. Abaixo vemos o [site alvo](https://www.baseball-reference.com/teams/) com o **DevTools** aberto.
 
+![devtools](https://user-images.githubusercontent.com/1486993/134050296-3789d554-b9e2-41d3-99df-c65c3dc77557.png)
 
-
+Neste site é mais simples fazer a raspagem coletando o texto diretamente do HTML do que inspecionando as chamadas feitas ao servidor. Na figura anterior o círculo com o número **1** indica o botão de seleção de elementos, este botão permite que selecionemos algum elemento diretamente no site renderizado e inspecionemos o código HTML associado a ele. Neste exemplo vamos selecionar o primeiro time da lista o **Arizona Diamondbacks**, indicado pelo círculo **2**. Ao clicar no nome do time (após termos clicado na ferramenta de seleção) a aba de elementos do **DevTools** irá automaticamente selecionar o código HTML responsável pelo elemento selecionado, ao clicarmos com o botão direito do mouse sobre o texto HTML marcado podemos copiar o código seletor deste elemento (clicando em **3** e **4**), este código seletor pode ser usado no javascript para interagir programaticamente com a página.
 
 ## O oráculo de baseball
 

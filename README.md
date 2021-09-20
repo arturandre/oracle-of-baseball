@@ -66,3 +66,14 @@ Como dito antes, ambos os scripts de python são executados por um terceiro scri
 
 ## O oráculo de baseball
 
+Agora que já fizemos a raspagem dos times, e dos jogadores de cada time, podemos inserir cada time como um vértice do grafo, assim como cada jogador. Como sabemos qual jogador jogou em quais times, podemos associciar o par de vértices correspondendo a cada um com uma aresta. A figura abaixo mostra alguns times (em laranja) e alguns jogadores (em azul) e suas conexões com os times em que jogaram.
+
+![neo4j_teams_players](https://user-images.githubusercontent.com/1486993/134088072-5747b829-140e-473d-90e7-be6d7c9cae7f.png)
+
+Este grafo foi gerado a partir do script python `insert_data_in_neo4j.py`. Este script faz uma conexão com uma instância local do banco de dados Neo4j através da biblioteca oficial do Neo4j para python. Uma vez feita esta conexão, os arquivos **.json** gerados até aqui são carregados e usando-se a linguagem **Cypher** (encapsulada em strings no script python) podemos criar os vértices e arestas. Note que no script python configuramos o endereço do servidor do Neo4j. O servidor do Neo4j disponibiliza dois endereços, um para conexões via o protocolo **bolt** (por padrão `bolt://localhost:7687`) e outro para acesso com o navegador via o protocolo **http** (por padrão `http://localhost:7474`) no python usamos o endereço (e porta) do protocolo **bolt**.
+
+O último passo para formar o oráculo de baseball é a criação de arestas conectando jogadores do mesmo time. Podemos realizar esta última etapa diretamente no script python ou através da aplicação web disponibilizada pelo servidor do neo4j (tipicamente no endereço `http://localhost:7474`). Abaixo é apresentado o código **Cypher** que faz cria arestas entre jogadores de um mesmo time:
+
+```
+
+```

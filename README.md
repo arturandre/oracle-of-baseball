@@ -93,6 +93,10 @@ RETURN p
 
 Todos os arquivos gerados ao longo do tutorial estão disponíveis [aqui](https://vision.ime.usp.br/~arturao/baseball/).
 
+- Para se iniciar um container docker com uma imagem oficial do neo4j e mapear uma pasta local para ser visível dentro do container podemos usar o comando abaixo, (trocando os volumes, se necessário as portas, o usuário (**neo4j**) e a senha (**1234**) de acesso ao sistema web:
+
+`docker run --publish=7474:7474 --publish=7687:7687 --volume="/c/Users/Andre/Documents/projetosdev/Baseball/neo4jdata":"/data" --env NEO4J_AUTH=neo4j/1234 neo4j`
+
 - Para salvar os dados do Neo4j inicializado pelo docker usamos o comando abaixo (trocando os volumes, o **<nome-do-arquivo>** e se necessário as portas):
 
 `docker run --interactive --tty --rm  --publish=7474:7474 --publish=7687:7687 --volume="/c/Users/Andre/Documents/projetosdev/Baseball/neo4jdata":"/data" --volume="/c/Users/Andre/Documents/projetosdev/Baseball/neo4jbackup":"/backups" --user="neo4j:neo4j" neo4j neo4j-admin dump --database=neo4j --to=/backups/<nome-do-arquivo>.dump`

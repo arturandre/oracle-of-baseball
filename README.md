@@ -4,6 +4,8 @@
 
 Neste projeto será ilustrado o processo de coleta de dados via raspagem (scrapping), o armazenamento destes em um banco de dados orientado à grafos (neo4j) e finalmente alguns exemplos de consultas serão apresentados. O tema do projeto será a formação de um grafo de adjacências de jogadores e times de baseball. Usado este grafo iremos medir a "distância entre os jogadores", isso é, jogadores que jogaram num mesmo time serão vizinhos no grafo e o menor caminho entre dois jogadores é a distância entre os jogadores. Este projeto é inspirado no [The Oracle of Bacon](https://oracleofbacon.org/), que é um grafo de atores que atuaram num mesmo filme.
 
+Todos os arquivos gerados ao longo do tutorial estão disponíveis [aqui](https://vision.ime.usp.br/~arturao/baseball/).
+
 O site de coleta de dados usado será o [BASEBALL REFERENCE](https://www.baseball-reference.com/).
 
 Na fase de raspagem iremos:
@@ -72,8 +74,22 @@ Agora que já fizemos a raspagem dos times, e dos jogadores de cada time, podemo
 
 Este grafo foi gerado a partir do script python `insert_data_in_neo4j.py`. Este script faz uma conexão com uma instância local do banco de dados Neo4j através da biblioteca oficial do Neo4j para python. Uma vez feita esta conexão, os arquivos **.json** gerados até aqui são carregados e usando-se a linguagem **Cypher** (encapsulada em strings no script python) podemos criar os vértices e arestas. Note que no script python configuramos o endereço do servidor do Neo4j. O servidor do Neo4j disponibiliza dois endereços, um para conexões via o protocolo **bolt** (por padrão `bolt://localhost:7687`) e outro para acesso com o navegador via o protocolo **http** (por padrão `http://localhost:7474`) no python usamos o endereço (e porta) do protocolo **bolt**.
 
-O último passo para formar o oráculo de baseball é a criação de arestas conectando jogadores do mesmo time. Podemos realizar esta última etapa diretamente no script python ou através da aplicação web disponibilizada pelo servidor do neo4j (tipicamente no endereço `http://localhost:7474`). Abaixo é apresentado o código **Cypher** que faz cria arestas entre jogadores de um mesmo time:
+O último passo para formar o oráculo de baseball é a criação de arestas conectando jogadores do mesmo time. Podemos realizar esta última etapa diretamente no script python (usando a função `connect_teammates()`) ou através da aplicação web disponibilizada pelo servidor do neo4j (tipicamente no endereço `http://localhost:7474`). Abaixo é apresentado o código **Cypher** que faz cria arestas entre jogadores de um mesmo time:
 
 ```
-
+MATCH (p1:Player)-[]->(t:Team)<-[]-(p2:Player)
+MERGE (p1)-[r:teammate]->(p2)
 ```
+
+## Links e truques
+
+Todos os arquivos gerados ao longo do tutorial estão disponíveis [aqui](https://vision.ime.usp.br/~arturao/baseball/).
+
+- Para salvar os dados do Neo4j inicializado pelo docker usamos o comando abaixo (trocando os volumes, o **<nome-do-arquivo>** e se necessário as portas):
+
+`docker run --interactive --tty --rm  --publish=7474:7474 --publish=7687:7687 --volume="/c/Users/Andre/Documents/projetosdev/Baseball/neo4jdata":"/data" --volume="/c/Users/Andre/Documents/projetosdev/Baseball/neo4jbackup":"/backups" --user="neo4j:neo4j" neo4j neo4j-admin dump --database=neo4j --to=/backups/<nome-do-arquivo>.dump`
+
+- Para carregar os dados salvos do neo4j usamos o comando (trocando os volumes, o **<nome-do-arquivo>** e se necessário as portas):
+  
+`docker run --interactive --tty --rm  --publish=7474:7474 --publish=7687:7687 --volume="/c/Users/Andre/Documents/projetosdev/Baseball/neo4jdata":"/data" --volume="/c/Users/Andre/Documents/projetosdev/Baseball/neo4jbackup":"/backups" --user="neo4j:neo4j" neo4j neo4j-admin load --from=/backups/<dump-name>.dump --database=neo4j --force`
+  

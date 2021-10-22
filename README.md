@@ -115,7 +115,7 @@ Após ter feito isso os comandos a seguir para criar um container com o neo4j de
 
 `docker run --interactive --tty --rm  --publish=7474:7474 --publish=7687:7687 --volume="/c/Users/Andre/Documents/projetosdev/Baseball/neo4jdata":"/data" --volume="/c/Users/Andre/Documents/projetosdev/Baseball/neo4jbackup":"/backups" --user="neo4j:neo4j" neo4j neo4j-admin dump --database=neo4j --to=/backups/<nome-do-arquivo>.dump`
 
-- Para carregar os dados salvos do neo4j usamos o comando (trocando os volumes, o **<nome-do-arquivo>** e se necessário as portas):
+- Para carregar os dados salvos do neo4j usamos o comando (trocando os volumes, o **\<nome-do-arquivo\>** e se necessário as portas):
   
 `docker run --interactive --tty --rm  --publish=7474:7474 --publish=7687:7687 --volume="/c/Users/Andre/Documents/projetosdev/Baseball/neo4jdata":"/data" --volume="/c/Users/Andre/Documents/projetosdev/Baseball/neo4jbackup":"/backups" --user="neo4j:neo4j" neo4j neo4j-admin load --from=/backups/<dump-name>.dump --database=neo4j --force`
   

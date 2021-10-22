@@ -111,11 +111,13 @@ Após ter feito isso os comandos a seguir para criar um container com o neo4j de
 
 `docker run --publish=7474:7474 --publish=7687:7687 --volume="/c/Users/Andre/Documents/projetosdev/Baseball/neo4jdata":"/data" --env NEO4J_AUTH=neo4j/1234 neo4j`
 
+Para podermos salvar e carregar **.dump**, que correspondem aos dados do neo4j, precisamos primeiro parar o container do neo4j (caso ele esteja rodando). Para isso primeiro pegamos o **ID** do container usando o comando **docker ps**. Uma vez que temos o **ID** do container do neo4j configurado, usamos o comando **docker stop ID** para parar o container, em seguida usamos os comandos abaixo para carregar/salvar o arquivo **.dump** e por fim rodamos novamente nosso container parado usando o comando **docker start ID**.
+
 - Considerando que temos um arquivo de dump do neo4j como o **20092021.dump**, e assumindo que ele esteja numa pasta chamada **neo4jbackup**, usamos o comando abaixo para carregar esse arquivo dump no neo4j (trocando os volumes, o **\<nome-do-arquivo\>** e se necessário as portas):
   
 `docker run --interactive --tty --rm  --publish=7474:7474 --publish=7687:7687 --volume="/c/Users/Andre/Documents/projetosdev/Baseball/neo4jdata":"/data" --volume="/c/Users/Andre/Documents/projetosdev/Baseball/neo4jbackup":"/backups" --user="neo4j:neo4j" neo4j neo4j-admin load --from=/backups/<dump-name>.dump --database=neo4j --force`
 
-Note que no windows os caminhos devem ser absolutos, enquanto que no linux eles devem ser relativos.
+Note que no Windows os caminhos devem ser absolutos, enquanto que no Linux eles devem ser relativos.
   
 
 - Para salvar os dados do Neo4j inicializado pelo docker usamos o comando abaixo (trocando os volumes, o **\<nome-do-arquivo\>** e se necessário as portas):

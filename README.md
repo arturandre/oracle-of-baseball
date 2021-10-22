@@ -93,6 +93,18 @@ RETURN p
 
 Todos os arquivos gerados ao longo do tutorial estão disponíveis [aqui](https://vision.ime.usp.br/~arturao/baseball/).
 
+- Após instalar o docker (no linux) os comandos `docker` devem ser executado com permissões de administrador (e.g. `sudo docker ...`. Para poder executar os comandos do `docker` sem o uso do `sudo` podemos criar um grupo docker e inserir nosso usuário a este grupo [referência](https://docs.docker.com/engine/install/linux-postinstall/) com os comandos abaixo:
+
+`sudo groupadd docker`
+`sudo usermod -aG docker $USER`
+
+Após executar estes comandos será preciso reiniciar a sessão do linux, isso pode significar fechar e abrir o terminal novamente, reiniciar a máquina ou as vezes simplesmente executar o seguinte comando:
+
+`newgrp docker`
+
+Após ter feito isso os comandos a seguir para criar um container com o neo4j devem ser possíveis sem o uso de `sudo`.
+
+
 - Para se iniciar um container docker com uma imagem oficial do neo4j e mapear uma pasta local para ser visível dentro do container podemos usar o comando abaixo, (trocando os volumes, se necessário as portas, o usuário (**neo4j**) e a senha (**1234**) de acesso ao sistema web:
 
 `docker run --publish=7474:7474 --publish=7687:7687 --volume="/c/Users/Andre/Documents/projetosdev/Baseball/neo4jdata":"/data" --env NEO4J_AUTH=neo4j/1234 neo4j`

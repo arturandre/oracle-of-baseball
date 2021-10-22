@@ -93,10 +93,12 @@ RETURN p
 
 Todos os arquivos gerados ao longo do tutorial estão disponíveis [aqui](https://vision.ime.usp.br/~arturao/baseball/).
 
-- Após instalar o docker (no linux) os comandos `docker` devem ser executado com permissões de administrador (e.g. `sudo docker ...`. Para poder executar os comandos do `docker` sem o uso do `sudo` podemos criar um grupo docker e inserir nosso usuário a este grupo [referência](https://docs.docker.com/engine/install/linux-postinstall/) com os comandos abaixo:
+- Após instalar o docker (no linux) os comandos `docker` devem ser executado com permissões de administrador (e.g. `sudo docker ps`). Para poder executar os comandos do `docker` sem o uso do `sudo` podemos criar um grupo docker e inserir nosso usuário a este grupo ([referência](https://docs.docker.com/engine/install/linux-postinstall/)) com os comandos abaixo:
 
-`sudo groupadd docker`
-`sudo usermod -aG docker $USER`
+```
+sudo groupadd docker
+sudo usermod -aG docker $USER
+```
 
 Após executar estes comandos será preciso reiniciar a sessão do linux, isso pode significar fechar e abrir o terminal novamente, reiniciar a máquina ou as vezes simplesmente executar o seguinte comando:
 

@@ -4,7 +4,7 @@
 
 Neste projeto será ilustrado o processo de coleta de dados via raspagem (scrapping), o armazenamento destes em um banco de dados orientado à grafos (neo4j) e finalmente alguns exemplos de consultas serão apresentados. O tema do projeto será a formação de um grafo de adjacências de jogadores e times de baseball. Usado este grafo iremos medir a "distância entre os jogadores", isso é, jogadores que jogaram num mesmo time serão vizinhos no grafo e o menor caminho entre dois jogadores é a distância entre os jogadores. Este projeto é inspirado no [The Oracle of Bacon](https://oracleofbacon.org/), que é um grafo de atores que atuaram num mesmo filme.
 
-Todos os arquivos gerados ao longo do tutorial estão disponíveis [aqui](https://vision.ime.usp.br/~arturao/baseball/).
+Todos os arquivos gerados ao longo do tutorial estão disponíveis [aqui](http://vision.ime.usp.br/~arturao/baseball/).
 
 O site de coleta de dados usado será o [BASEBALL REFERENCE](https://www.baseball-reference.com/).
 

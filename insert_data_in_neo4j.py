@@ -13,17 +13,22 @@ class Neo4jConnector:
 
     def connect_teammates(self):
         with self.driver.session() as session:
-            statement_ok = session.write_transaction(self._connect_teammates)
-            if statement_ok:
-                print(f"Teammates connected in a complete graph.")
-            else:
-                print(f"Something went wrong while connecting teammates! Try to use the browser app.")
+            create_edges = session.write_transaction(self._connect_teammates)
+            #create_edges = create_edges.single()
+            print(f"{create_edges} edges were created.")
+            return create_edges
 
     @staticmethod
-    def _connect_teammates(tx, team):
-        tx.run(f"MATCH (p1:Player)-[]->(t:Team)<-[]-(p2:Player) "
-            f"MERGE (p1)-[r:teammate]->(p2)")
-        return True
+    def _connect_teammates(tx):
+        ret = tx.run(
+            f"MATCH (p1:Player)-[]->(t:Team)<-[]-(p2:Player) "
+            f"WHERE NOT (p1)-[]-(p2) "
+            f"WITH p1, p2 "
+            f"LIMIT 5000 "
+            f"MERGE (p1)-[r:teammate]->(p2) "
+            f"RETURN COUNT(r) "
+            )
+        return ret.single()[0]
 
     def create_and_return_team(self, team):
         with self.driver.session() as session:

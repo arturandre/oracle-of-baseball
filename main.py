@@ -20,27 +20,29 @@ async def main():
         "activeteams",
         "inactiveteams",
         "nacionalteams"]
+    teamsfiles = teamsfiles[1:]
     sleep_time = 15
     print(f"Sleeping {sleep_time} second between calls")
     for teamfile in teamsfiles:
         teams = load_team_jsons(teamfile + ".json")
         os.makedirs(teamfile, exist_ok=True)
-        os.chdir(teamfile)
+        #os.chdir(teamfile)
         for team in tqdm(teams):
             team_name = team['name']
+            team_name = team_name.replace("/", "-")
             team_url = team['url']
-            output_file = f'players_{team_name}_pitching.json'
+            output_file = f'{teamfile}/players_{team_name}_pitching.json'
             if not os.path.exists(output_file):
                 print(f"getting {output_file}")
-                await get_players.main(team_name, team_url, "pitching") # pitching players for 'team_url'
+                await get_players.main(team_name, team_url, "pitching", output_dir=teamfile) # pitching players for 'team_url'
                 sleep(sleep_time)
-            output_file = f'players_{team_name}_batting.json'
+            output_file = f'{teamfile}/players_{team_name}_batting.json'
             if not os.path.exists(output_file):
                 print(f"getting {output_file}")
-                await get_players.main(team_name, team_url, "batting") # batting players for 'team_url'
+                await get_players.main(team_name, team_url, "batting", output_dir=teamfile) # batting players for 'team_url'
                 sleep(sleep_time)
         #break
-        os.chdir("..")
+        #os.chdir("..")
     pass
 
 if __name__ == "__main__":

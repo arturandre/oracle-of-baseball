@@ -1,4 +1,5 @@
 import asyncio
+import pyppeteer
 from pyppeteer import launch
 import json
 import os
@@ -27,7 +28,10 @@ async def get_teams_jsons(page):
        os.path.exists("inactiveteams.json") and\
        os.path.exists("nacionalteams.json"):
        return
-    await page.goto(teams_url)
+    try:
+        await page.goto(teams_url, {"timeout": 10*1000})
+    except pyppeteer.errors.TimeoutError:
+        await page.evaluate("window.stop()")
     teamsdict = await load_js("get_teams.js", page)
     with open('activeteams.json', 'w') as fp:
         json.dump(teamsdict["activeteams"], fp)
@@ -38,7 +42,7 @@ async def get_teams_jsons(page):
     
 
 async def main():
-    browser = await launch()
+    browser = await launch({"headless": False})
     page = await browser.newPage()
     await get_teams_jsons(page)
     await browser.close()
